@@ -79,8 +79,8 @@ class TIMMLitModule(LightningModule):
         # update and log metrics
         self.val_loss(loss)
         self.val_acc(preds, targets)
-        self.log("val/loss", self.val_loss, on_step=False, on_epoch=True, prog_bar=True)
-        self.log("val/acc", self.val_acc, on_step=False, on_epoch=True, prog_bar=True)
+        self.log("val/loss", self.val_loss, on_step=False, on_epoch=True, prog_bar=True,sync_dist=True)
+        self.log("val/acc", self.val_acc, on_step=False, on_epoch=True, prog_bar=True,sync_dist=True)
 
         return {"loss": loss, "preds": preds, "targets": targets}
 
