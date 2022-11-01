@@ -24,7 +24,7 @@ What it does
 Model - vit_base_patch32_224 was used for training with hardware - 4 x g4dn.xlarge nodes and trainer as - FSDP
 Max Epochs reached - 39
 
-NVidia-smi dumps for 4 nodes available in folder-
+NVidia-smi dumps for 4 nodes available in github repo folder-
 
 nvidia-smi
 
