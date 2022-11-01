@@ -22,7 +22,7 @@ What it does
 ## How to run
 
 Model - vit_base_patch32_224 was used for training with hardware - 4 x g4dn.xlarge nodes and trainer as - FSDP
-
+Max Epochs reached - 39
 
 NVidia-smi dumps for 4 nodes available in folder-
 
@@ -64,14 +64,3 @@ MASTER_PORT=29500 MASTER_ADDR='master node'  WORLD_SIZE=4 NODE_RANK=3 nohup pyth
 
 ```
 
-Train model with chosen experiment configuration from [configs/experiment/](configs/experiment/)
-
-```bash
-python src/train.py experiment=experiment_name.yaml
-```
-
-You can override any parameter from command line like this
-
-```bash
-python src/train.py trainer.max_epochs=20 datamodule.batch_size=64
-```
