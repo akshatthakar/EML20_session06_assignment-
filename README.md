@@ -21,8 +21,10 @@ What it does
 
 ## How to run
 
+Model - vit_base_patch32_224 was used for training with hardware - 4 x g4dn.xlarge nodes and trainer as - FSDP
 
-NVidia-smi dump folder-
+
+NVidia-smi dumps for 4 nodes available in folder-
 
 nvidia-smi
 
@@ -33,29 +35,33 @@ https://tensorboard.dev/experiment/roBN68p4TXyLJ0h2kJou1w
 Install dependencies
 
 ```bash
-# clone project
-git clone https://github.com/YourGithubName/your-repo-name
-cd your-repo-name
+# Commands to run on each GPU node
 
-# [OPTIONAL] create conda environment
-conda create -n myenv python=3.9
-conda activate myenv
+mkdir /home/ubuntu/build
+cd /home/ubuntu/build
+git clone https://github.com/akshatthakar/EML20_session06_assignment-.git
+wget https://bootstrap.pypa.io/get-pip.py
+python3 get-pip.py
+python3 -m pip install awscli
+cd /home/ubuntu/build/EML20_session06_assignment-
+python3 -m pip install -r requirements.txt
 
-# install pytorch according to instructions
-# https://pytorch.org/get-started/
 
-# install requirements
-pip install -r requirements.txt
 ```
-
-Train model with default configuration
+Commands run on each of the 4 nodes as per sequence/rank
 
 ```bash
 # train on CPU
-python src/train.py trainer=cpu
 
-# train on GPU
-python src/train.py trainer=gpu
+MASTER_PORT=29500 MASTER_ADDR='master node' WORLD_SIZE=4 NODE_RANK=0 nohup python3 src/train.py experiment=cifar trainer=fsdp trainer.devices=1 trainer.num_nodes=4 &
+
+MASTER_PORT=29500 MASTER_ADDR='master node'  WORLD_SIZE=4 NODE_RANK=1 nohup python3 src/train.py experiment=cifar trainer=fsdp trainer.devices=1 trainer.num_nodes=4 &
+
+MASTER_PORT=29500 MASTER_ADDR='master node'  WORLD_SIZE=4 NODE_RANK=2 nohup python3 src/train.py experiment=cifar trainer=fsdp trainer.devices=1 trainer.num_nodes=4 &
+
+MASTER_PORT=29500 MASTER_ADDR='master node'  WORLD_SIZE=4 NODE_RANK=3 nohup python3 src/train.py experiment=cifar trainer=fsdp trainer.devices=1 trainer.num_nodes=4 &
+
+
 ```
 
 Train model with chosen experiment configuration from [configs/experiment/](configs/experiment/)
