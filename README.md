@@ -32,6 +32,9 @@ nvidia-smi
 TensorBoard Url-
 https://tensorboard.dev/experiment/roBN68p4TXyLJ0h2kJou1w
 
+S3 Location for Best Model run-
+https://s3.console.aws.amazon.com/s3/buckets/emlov2session6?region=ap-northeast-1&prefix=run_logs/&showversions=false
+
 Install dependencies
 
 ```bash
