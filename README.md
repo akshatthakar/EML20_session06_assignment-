@@ -17,7 +17,7 @@ ______________________________________________________________________
 
 ## Description
 
-What it does
+Distributed training with Fully Sharded Data Parallel [FSDP] training method on AWS
 
 ## How to run
 
